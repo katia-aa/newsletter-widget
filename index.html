@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customizable Newsletter Signup</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f8fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .newsletter {
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: white;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .newsletter h2 {
+      margin: 0 0 15px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .newsletter p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      opacity: 0.85;
+    }
+
+    .newsletter form {
+      display: flex;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .newsletter input[type="email"] {
+      flex: 1;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      outline: none;
+      border-radius: 5px 0 0 5px;
+      box-sizing: border-box;
+    }
+
+    .newsletter button {
+      background-color: #ff6b00;
+      border: none;
+      padding: 15px 30px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background-color: #ff9a00;
+    }
+
+    .newsletter input::placeholder {
+      color: #888;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="newsletter" id="newsletterContainer">
+  <h2 id="formHeading">Get the Latest on Leash-Optional Dog Bar Events!</h2>
+  <p id="formDescription">Sign up to stay updated on upcoming events and special offers for dog lovers.</p>
+  <form id="signupForm">
+    <input type="email" name="email" placeholder="Enter your email address" required>
+    <button id="formButton" type="submit">Subscribe</button>
+  </form>
+</div>
+
+<script>
+  // Configuration options for customization (can be replaced with user inputs)
+  const userSettings = {
+    headingText: "Sign up for our exclusive newsletter!",
+    descriptionText: "Join the community and stay updated on the latest events and offers.",
+    buttonText: "Join Now",
+    backgroundColor: "#6e00ff",  // User can customize background color
+    scriptURL: "YOUR_GOOGLE_SCRIPT_WEB_APP_URL" // User-provided Google Apps Script URL
+  };
+
+  // Apply user settings
+  document.getElementById('formHeading').innerText = userSettings.headingText;
+  document.getElementById('formDescription').innerText = userSettings.descriptionText;
+  document.getElementById('formButton').innerText = userSettings.buttonText;
+  document.getElementById('newsletterContainer').style.background = userSettings.backgroundColor;
+
+  // Handle form submission
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    var formData = new FormData(e.target);
+    var email = formData.get('email');
+
+    // Use the user-provided Google Apps Script URL
+    fetch(userSettings.scriptURL, { method: 'POST', body: formData })
+      .then(response => response.text())
+      .then(result => alert('Thank you for signing up! We can’t wait to see you and your dog at the next event.'))
+      .catch(error => console.error('Error:', error));
+    
+    e.target.reset(); // Clear the form
+  });
+</script>
+
+</body>
+</html>
