@@ -1,4 +1,0 @@
-[[headers]]
-for = "/embed.js"
-[headers.values]
-Content-Type = "application/javascript"
