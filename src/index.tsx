@@ -15,19 +15,7 @@ const App = () => {
   }, []); // This runs after the component has mounted
 
   const handleClear = () => {
-    if (signaturePad) {
-      signaturePad.clear();
-    }
-  };
-
-  const handleSubmit = (event: Event) => {
-    event.preventDefault();
-    if (signaturePad && !signaturePad.isEmpty()) {
-      const signatureData = signaturePad.toDataURL();
-      console.log("Signature Data:", signatureData);
-    } else {
-      alert("Please provide a signature.");
-    }
+    if (signaturePad) signaturePad.clear();
   };
 
   return (
