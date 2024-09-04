@@ -1,31 +1,32 @@
 /** @jsx h */
 import { h, render } from "preact";
-import { useRef } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import SignaturePad from "signature_pad";
 
 const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  let signaturePad: SignaturePad | null = null;
 
-  const handleClear = () => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const signaturePad = new SignaturePad(canvas);
+      signaturePad = new SignaturePad(canvas);
+    }
+  }, []); // This runs after the component has mounted
+
+  const handleClear = () => {
+    if (signaturePad) {
       signaturePad.clear();
     }
   };
 
   const handleSubmit = (event: Event) => {
     event.preventDefault();
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const signaturePad = new SignaturePad(canvas);
-      if (!signaturePad.isEmpty()) {
-        const signatureData = signaturePad.toDataURL();
-        console.log("Signature Data:", signatureData);
-        // Hook this up to form submission or backend processing
-      } else {
-        alert("Please provide a signature.");
-      }
+    if (signaturePad && !signaturePad.isEmpty()) {
+      const signatureData = signaturePad.toDataURL();
+      console.log("Signature Data:", signatureData);
+    } else {
+      alert("Please provide a signature.");
     }
   };
 
@@ -49,8 +50,9 @@ const App = () => {
   );
 };
 
-// Render the component to a root element
-render(
-  <App />,
-  document.getElementById("preact-signature-pad-root") as HTMLElement
-);
+document.addEventListener("DOMContentLoaded", () => {
+  render(
+    <App />,
+    document.getElementById("preact-signature-pad-root") as HTMLElement
+  );
+});
