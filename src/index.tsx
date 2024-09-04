@@ -31,28 +31,71 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="signature-pad-container">
       <h2>Please Sign Below</h2>
       <canvas
+        className="signature-pad-canvas"
         ref={canvasRef}
         width={400}
         height={200}
-        style="border: 1px solid #000"
-      ></canvas>
+      />
       <br />
-      <button type="button" onClick={handleClear}>
+      <button
+        className="signature-pad-button"
+        type="button"
+        onClick={handleClear}
+      >
         Clear
-      </button>
-      <button type="submit" onClick={handleSubmit}>
-        Submit
       </button>
     </div>
   );
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  render(
-    <App />,
-    document.getElementById("preact-signature-pad-root") as HTMLElement
-  );
-});
+const rootElement = document.getElementById(
+  "preact-signature-pad-root"
+) as HTMLElement;
+
+// Create a shadow root
+const shadowRoot = rootElement.attachShadow({ mode: "open" });
+
+// Create a style element and append it to the shadow root
+const style = document.createElement("style");
+style.textContent = `
+    .signature-pad-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .signature-pad-canvas {
+      border: 2px solid #333;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+    }
+
+    .signature-pad-button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .signature-pad-button:hover {
+      background-color: #45a049;
+    }
+  `;
+
+// Append the style to the shadow root
+shadowRoot.appendChild(style);
+
+// Render the component into the shadow root
+render(<App />, shadowRoot);
