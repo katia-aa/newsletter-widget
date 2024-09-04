@@ -49,6 +49,11 @@ const shadowRoot = rootElement.attachShadow({ mode: "open" });
 // Create a style element and append it to the shadow root
 const style = document.createElement("style");
 style.textContent = `
+    :host {
+        all: initial; /* Reset all styles */
+        font-family: inherit; /* Inherit font from the host */
+    }
+
     .signature-pad-container {
       display: flex;
       flex-direction: column;
