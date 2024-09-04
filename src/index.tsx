@@ -53,7 +53,6 @@ style.textContent = `
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-family: Arial, sans-serif;
     }
 
     .signature-pad-canvas {
