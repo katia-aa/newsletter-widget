@@ -6,7 +6,38 @@
     <title>Preact Widget</title>
   </head>
   <body>
+    <!-- Signature pad widget will be rendered here -->
     <div id="preact-signature-pad-root"></div>
-    <script src="./dist/index.js"></script>
+
+    <!-- Main form -->
+    <form onsubmit="myFunction(event)">
+      Enter name: <input type="text" name="fname" />
+      <input type="hidden" name="signature" id="signature-field" />
+      <input type="submit" value="Submit" />
+      <script src="./dist/index.js"></script>
+    </form>
+
+    <script>
+      // Capture form submission and ensure the signature is added
+      function myFunction(e) {
+        const signatureInput = document.getElementById("signature-field");
+        console.log("e.target.fname.value");
+        console.log(e.target.fname.value);
+        console.log("e.target.signature.value");
+        console.log(e.target.signature.value);
+        console.log("Signature before submit:", signatureInput.value); // The signature value should now be populated here
+
+        // Prevent form submission for testing purposes
+        e.preventDefault();
+      }
+
+      // Listen for custom event dispatched from Shadow DOM
+      //   document.addEventListener("signatureCaptured", (e) => {
+      //     const signatureData = e.detail.signature; // Get the signature data from the event
+      //     const signatureInput = document.getElementById("signature-field");
+      //     signatureInput.value = signatureData; // Set the hidden input value with the signature data
+      //     console.log("Signature captured and added to form:", signatureData);
+      //   });
+    </script>
   </body>
 </html>
