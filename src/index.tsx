@@ -105,25 +105,35 @@ style.textContent = `
         font-family: inherit; /* Inherit font from the host */
     }
 
+    .signature-pad-container {
+      position: relative;
+      display: inline-block;
+    }
+
     .signature-pad-canvas {
-      border: 2px solid #333;
-      border-radius: 8px;
+      background-color:rgb(255, 255, 255);   
+      border: 1px solid rgb(204, 204, 204);
+      border-radius: 4px;
       width: 100%;
       max-width: 400px;
       height: auto;
     }
 
     .signature-pad-button {
-      margin: 10px;
-      padding: 10px 20px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgb(132, 132, 194);
+      padding: 5px 10px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
+      color: white;
     }
 
     .signature-pad-button:hover {
-      background-color: #45a049;
+      background-color: rgb(102, 102, 164);
     }
   `;
 
